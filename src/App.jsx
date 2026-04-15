@@ -58,7 +58,7 @@ function AVExploder() {
   const spread = expand * 85;
 
   return (
-    <div style={{ textAlign: "center", maxWidth: 900, margin: "0 auto" }}>
+    <div style={{ textAlign: "center", maxWidth: 1000, margin: "0 auto" }}>
       {/* 3D Scene */}
       <div style={{
         position: "relative", width: "100%", maxWidth: 750, height: 500, margin: "0 auto",
@@ -193,14 +193,14 @@ function AVExploder() {
               {expand > 0.2 && (
                 <div style={{
                   position: "absolute", top: "50%",
-                  ...(i % 2 === 0 ? { right: -30, transform: "translateY(-50%)" } : { left: -30, transform: "translateY(-50%)" }),
+                  ...(i % 2 === 0 ? { right: -80, transform: "translateY(-50%)" } : { left: -80, transform: "translateY(-50%)" }),
                   display: "flex", alignItems: "center", gap: 10,
                   flexDirection: i % 2 === 0 ? "row" : "row-reverse",
                   opacity: Math.min(1, (expand - 0.2) * 3),
                   transition: "opacity 0.4s",
                 }}>
                   {/* Connector line */}
-                  <div style={{ width: 55, height: 1, background: `linear-gradient(${i%2===0?"90deg":"270deg"}, ${l.color}60, transparent)` }}/>
+                  <div style={{ width: 70, height: 1, background: `linear-gradient(${i%2===0?"90deg":"270deg"}, ${l.color}60, transparent)` }}/>
                   {/* Tag */}
                   <div style={{
                     background: `${l.color}10`, border: `1px solid ${l.color}30`,
