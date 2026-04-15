@@ -43,93 +43,204 @@ function Src({ href, children }) {
   );
 }
 
-/* ─── Interactive AV Exploder ─── */
+/* ─── Interactive AV Exploder (Isometric 3D) ─── */
 function AVExploder() {
   const [expand, setExpand] = useState(0);
+  const [hovered, setHovered] = useState(null);
+
   const layers = [
-    { label: "Body Shell", color: "#a1a1aa", y: 0 },
-    { label: "LiDAR & Sensors", color: "#00d4ff", y: 1 },
-    { label: "AI Decision Engine", color: "#7b61ff", y: 2 },
-    { label: "Passenger Cabin", color: "#38bdf8", y: 3 },
+    { label: "Body Shell & Exterior", desc: "Aerodynamic shell with integrated sensor housings", color: "#c0c0c8", accent: "#e4e4e7", icon: "◇" },
+    { label: "LiDAR, Cameras & Radar", desc: "360° environmental perception at 200m range", color: "#00d4ff", accent: "#38bdf8", icon: "◉" },
+    { label: "AI Decision Engine", desc: "Neural networks processing 1TB of data per hour", color: "#7b61ff", accent: "#a78bfa", icon: "⬡" },
+    { label: "Passenger Cabin", desc: "Redesigned interior for work, rest, or connection", color: "#38bdf8", accent: "#67e8f9", icon: "◎" },
   ];
+
+  const spread = expand * 55;
+
   return (
-    <div style={{ textAlign: "center" }}>
-      <div style={{ position: "relative", width: 320, height: 220, margin: "0 auto" }}>
+    <div style={{ textAlign: "center", maxWidth: 700, margin: "0 auto" }}>
+      {/* 3D Scene */}
+      <div style={{
+        position: "relative", width: "100%", maxWidth: 520, height: 340, margin: "0 auto",
+        perspective: 900, perspectiveOrigin: "50% 40%",
+      }}>
+        {/* Ground shadow */}
+        <div style={{
+          position: "absolute", bottom: 10, left: "50%", width: 280, height: 40,
+          transform: "translateX(-50%)", borderRadius: "50%",
+          background: "radial-gradient(ellipse, rgba(0,180,255,0.08) 0%, transparent 70%)",
+          filter: "blur(10px)", transition: "all 0.5s",
+          opacity: 1 - expand * 0.5,
+        }}/>
+
         {layers.map((l, i) => {
-          const offset = expand * (i - 1.5) * 38;
+          const yOff = (i - 1.5) * spread;
+          const isHov = hovered === i;
+          const layerOp = hovered !== null && hovered !== i ? 0.35 : 1;
+
           return (
-            <div key={i} style={{
-              position: "absolute", left: "50%", top: "50%",
-              transform: `translate(-50%, calc(-50% + ${offset}px))`,
-              transition: "transform 0.5s cubic-bezier(.4,0,.2,1), opacity 0.4s",
-              zIndex: 4 - i,
-            }}>
-              {i === 0 && (
-                <svg viewBox="0 0 300 100" style={{ width: 300 }}>
-                  <path d="M30 65Q30 40 55 40L245 40Q270 40 270 65L270 80Q270 88 262 88L38 88Q30 88 30 80Z" fill={l.color} opacity="0.7"/>
-                  <path d="M80 40Q85 10 120 6L185 6Q215 10 222 40Z" fill="#7dd3fc" opacity="0.4"/>
-                </svg>
-              )}
-              {i === 1 && (
-                <svg viewBox="0 0 300 50" style={{ width: 300 }}>
-                  <ellipse cx="150" cy="20" rx="8" ry="6" fill={l.color} opacity="0.9"/>
-                  {[-60,-30,0,30,60].map((dx,j)=>(
+            <div key={i}
+              onMouseEnter={() => setHovered(i)}
+              onMouseLeave={() => setHovered(null)}
+              style={{
+                position: "absolute", left: "50%", top: "50%", width: 400, cursor: "pointer",
+                transform: `translate(-50%, calc(-50% + ${yOff}px)) rotateX(12deg) ${isHov && expand > 0.2 ? "scale(1.04)" : "scale(1)"}`,
+                transformStyle: "preserve-3d",
+                transition: "transform 0.45s cubic-bezier(.25,.46,.45,.94), opacity 0.35s",
+                zIndex: hovered === i ? 20 : 4 - i,
+                opacity: layerOp,
+                filter: isHov ? `drop-shadow(0 4px 20px ${l.color}40)` : "none",
+              }}>
+              <svg viewBox="0 0 400 80" style={{ width: "100%", overflow: "visible" }}>
+                <defs>
+                  <linearGradient id={`lg${i}`} x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor={l.accent} stopOpacity="0.25"/>
+                    <stop offset="100%" stopColor={l.color} stopOpacity="0.08"/>
+                  </linearGradient>
+                  <linearGradient id={`side${i}`} x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor={l.color} stopOpacity="0.2"/>
+                    <stop offset="100%" stopColor={l.color} stopOpacity="0.05"/>
+                  </linearGradient>
+                  <filter id={`glow${i}`}><feGaussianBlur stdDeviation="2" result="g"/><feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                </defs>
+
+                {/* 3D side face (depth illusion) */}
+                <path d={`M50 52 L50 60 Q50 68 60 68 L340 68 Q350 68 350 60 L350 52`}
+                  fill={`url(#side${i})`} stroke={l.color} strokeWidth="0.3" strokeOpacity="0.3"/>
+
+                {/* Main top face */}
+                {i === 0 ? (<>
+                  {/* Car body - sleek shape */}
+                  <path d="M50 30 Q50 14 70 14 L330 14 Q350 14 350 30 L350 48 Q350 54 340 54 L60 54 Q50 54 50 48 Z"
+                    fill={`url(#lg${i})`} stroke={l.color} strokeWidth="0.6" strokeOpacity="0.4"/>
+                  {/* Windshield */}
+                  <path d="M130 14 Q135 -4 175 -8 L225 -8 Q265 -4 270 14" fill="none" stroke={l.accent} strokeWidth="0.8" strokeOpacity="0.3"/>
+                  <path d="M135 14 Q140 0 175 -4 L225 -4 Q260 0 265 14 Z" fill={`${l.color}10`} stroke="none"/>
+                  {/* Headlights */}
+                  <ellipse cx="345" cy="34" rx="6" ry="4" fill="#00d4ff" opacity="0.5" filter={`url(#glow${i})`}/>
+                  <ellipse cx="55" cy="34" rx="5" ry="3.5" fill="#ff6b6b" opacity="0.35"/>
+                  {/* Panel lines */}
+                  <line x1="200" y1="14" x2="200" y2="54" stroke={l.color} strokeWidth="0.15" strokeOpacity="0.25"/>
+                  <line x1="140" y1="34" x2="260" y2="34" stroke={l.color} strokeWidth="0.15" strokeOpacity="0.15"/>
+                </>) : i === 1 ? (<>
+                  {/* Sensor array platform */}
+                  <rect x="60" y="16" width="280" height="36" rx="8" fill={`url(#lg${i})`} stroke={l.color} strokeWidth="0.5" strokeOpacity="0.4"/>
+                  {/* LiDAR dome */}
+                  <ellipse cx="200" cy="10" rx="16" ry="10" fill={`${l.color}25`} stroke={l.color} strokeWidth="0.8" strokeOpacity="0.6"/>
+                  <ellipse cx="200" cy="10" rx="8" ry="5" fill={l.color} opacity="0.3"/>
+                  {/* Scanning rings */}
+                  {[24,36,48].map((r,j)=>(
+                    <ellipse key={j} cx="200" cy="10" rx={r} ry={r*0.4} fill="none" stroke={l.color} strokeWidth="0.4" strokeOpacity={0.2-j*0.05} strokeDasharray="4 6">
+                      <animateTransform attributeName="transform" type="rotate" from={`0 200 10`} to={`${j%2===0?360:-360} 200 10`} dur={`${5+j*2}s`} repeatCount="indefinite"/>
+                    </ellipse>
+                  ))}
+                  {/* Camera nodes */}
+                  {[-80,-40,0,40,80].map((dx,j)=>(
                     <g key={j}>
-                      <circle cx={150+dx} cy="35" r="4" fill={l.color} opacity="0.6"/>
-                      <line x1={150+dx} y1="35" x2={150+dx} y2="20" stroke={l.color} strokeWidth="0.5" opacity="0.4"/>
+                      <circle cx={200+dx} cy="38" r="5" fill={`${l.color}20`} stroke={l.color} strokeWidth="0.5" strokeOpacity="0.5"/>
+                      <circle cx={200+dx} cy="38" r="2" fill={l.color} opacity="0.6">
+                        <animate attributeName="opacity" values="0.3;0.8;0.3" dur={`${1.5+j*0.3}s`} repeatCount="indefinite"/>
+                      </circle>
+                      <line x1={200+dx} y1="33" x2={200+dx} y2="19" stroke={l.color} strokeWidth="0.3" strokeOpacity="0.2" strokeDasharray="2 2"/>
                     </g>
                   ))}
-                  <circle cx="150" cy="20" r="18" fill="none" stroke={l.color} strokeWidth="0.8" opacity="0.3" strokeDasharray="3 3">
-                    <animateTransform attributeName="transform" type="rotate" from="0 150 20" to="360 150 20" dur="4s" repeatCount="indefinite"/>
-                  </circle>
-                </svg>
-              )}
-              {i === 2 && (
-                <svg viewBox="0 0 300 40" style={{ width: 300 }}>
-                  <rect x="100" y="8" width="100" height="24" rx="6" fill={l.color} opacity="0.5"/>
-                  <text x="150" y="24" textAnchor="middle" fill="#fff" fontSize="8" fontFamily="monospace" opacity="0.7">AI CORE</text>
-                  {[110,125,140,155,170,185].map((x,j)=>(
-                    <rect key={j} x={x} y="12" width="3" height="3" rx="1" fill="#fff" opacity={0.3+j*0.1}>
-                      <animate attributeName="opacity" values={`${0.3+j*0.1};0.9;${0.3+j*0.1}`} dur={`${1+j*0.2}s`} repeatCount="indefinite"/>
-                    </rect>
+                </>) : i === 2 ? (<>
+                  {/* AI compute platform */}
+                  <rect x="80" y="14" width="240" height="40" rx="10" fill={`url(#lg${i})`} stroke={l.color} strokeWidth="0.5" strokeOpacity="0.4"/>
+                  {/* Chip grid */}
+                  {Array.from({length:6}).map((_,r)=>
+                    Array.from({length:10}).map((_,c)=>(
+                      <rect key={`${r}${c}`} x={105+c*22} y={20+r*5} width="14" height="3" rx="0.8"
+                        fill={l.color} opacity={0.08 + ((r+c)%3)*0.06}>
+                        <animate attributeName="opacity" values={`${0.08+(r+c)%3*0.06};${0.3+(r+c)%2*0.15};${0.08+(r+c)%3*0.06}`}
+                          dur={`${1.2+((r*10+c)%5)*0.4}s`} repeatCount="indefinite"/>
+                      </rect>
+                    ))
+                  )}
+                  {/* Central processor */}
+                  <rect x="170" y="22" width="60" height="24" rx="4" fill={`${l.color}15`} stroke={l.color} strokeWidth="0.6" strokeOpacity="0.4"/>
+                  <text x="200" y="37" textAnchor="middle" fill={l.accent} fontSize="7" fontFamily="'DM Sans',monospace" fontWeight="600" opacity="0.7">AI CORE</text>
+                  {/* Data flow lines */}
+                  <line x1="170" y1="34" x2="100" y2="34" stroke={l.color} strokeWidth="0.4" strokeOpacity="0.2" strokeDasharray="3 4">
+                    <animate attributeName="strokeDashoffset" values="0;-14" dur="1.5s" repeatCount="indefinite"/>
+                  </line>
+                  <line x1="230" y1="34" x2="300" y2="34" stroke={l.color} strokeWidth="0.4" strokeOpacity="0.2" strokeDasharray="3 4">
+                    <animate attributeName="strokeDashoffset" values="0;14" dur="1.5s" repeatCount="indefinite"/>
+                  </line>
+                </>) : (<>
+                  {/* Passenger cabin */}
+                  <rect x="90" y="10" width="220" height="48" rx="14" fill={`url(#lg${i})`} stroke={l.color} strokeWidth="0.5" strokeOpacity="0.35"/>
+                  {/* Seats */}
+                  {[155,245].map((sx,j)=>(
+                    <g key={j}>
+                      <rect x={sx-18} y="20" width="36" height="28" rx="6" fill={`${l.color}08`} stroke={l.color} strokeWidth="0.4" strokeOpacity="0.25"/>
+                      {/* Person */}
+                      <circle cx={sx} cy="26" r="5" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.08)" strokeWidth="0.5"/>
+                      <path d={`M${sx-4} 32 Q${sx-5} 44 ${sx} 44 Q${sx+5} 44 ${sx+4} 32`} fill="rgba(255,255,255,0.08)"/>
+                      {/* Screen glow */}
+                      <rect x={sx-3} y="34" width="6" height="9" rx="1" fill={j===0?"rgba(0,212,255,0.12)":"rgba(123,97,255,0.12)"}
+                        stroke={j===0?"rgba(0,212,255,0.25)":"rgba(123,97,255,0.25)"} strokeWidth="0.4">
+                        <animate attributeName="opacity" values="0.6;1;0.6" dur={`${2+j}s`} repeatCount="indefinite"/>
+                      </rect>
+                    </g>
                   ))}
-                </svg>
-              )}
-              {i === 3 && (
-                <svg viewBox="0 0 300 60" style={{ width: 300 }}>
-                  <rect x="90" y="5" width="120" height="45" rx="10" fill="rgba(255,255,255,0.05)" stroke={l.color} strokeWidth="0.5" opacity="0.6"/>
-                  {/* Passenger silhouettes */}
-                  <circle cx="130" cy="22" r="6" fill="rgba(255,255,255,0.2)"/>
-                  <path d="M124 30 Q124 42 130 42 Q136 42 136 30" fill="rgba(255,255,255,0.15)"/>
-                  <circle cx="170" cy="22" r="6" fill="rgba(255,255,255,0.2)"/>
-                  <path d="M164 30 Q164 42 170 42 Q176 42 176 30" fill="rgba(255,255,255,0.15)"/>
-                  {/* Phone screen glow */}
-                  <rect x="166" y="28" width="8" height="12" rx="1.5" fill="rgba(0,212,255,0.15)" stroke="rgba(0,212,255,0.3)" strokeWidth="0.5"/>
-                </svg>
-              )}
-              {expand > 0.3 && (
+                  {/* Center divider */}
+                  <line x1="200" y1="18" x2="200" y2="50" stroke="rgba(255,255,255,0.04)" strokeWidth="0.5"/>
+                </>)}
+              </svg>
+
+              {/* Label connector + tag */}
+              {expand > 0.2 && (
                 <div style={{
-                  position: "absolute", right: i%2===0 ? -120 : "auto", left: i%2===1 ? -120 : "auto",
-                  top: "50%", transform: "translateY(-50%)", fontSize: 10, color: l.color,
-                  fontWeight: 600, letterSpacing: 0.5, whiteSpace: "nowrap",
-                  opacity: Math.min(1, (expand-0.3)*3),
+                  position: "absolute", top: "50%",
+                  ...(i % 2 === 0 ? { right: -10, transform: "translateY(-50%)" } : { left: -10, transform: "translateY(-50%)" }),
+                  display: "flex", alignItems: "center", gap: 8,
+                  flexDirection: i % 2 === 0 ? "row" : "row-reverse",
+                  opacity: Math.min(1, (expand - 0.2) * 3),
+                  transition: "opacity 0.4s",
                 }}>
-                  {l.label}
+                  {/* Connector line */}
+                  <div style={{ width: 40, height: 1, background: `linear-gradient(${i%2===0?"90deg":"270deg"}, ${l.color}60, transparent)` }}/>
+                  {/* Tag */}
+                  <div style={{
+                    background: `${l.color}10`, border: `1px solid ${l.color}30`,
+                    borderRadius: 10, padding: "6px 14px", whiteSpace: "nowrap",
+                    backdropFilter: "blur(8px)",
+                    transform: isHov ? "scale(1.05)" : "scale(1)",
+                    transition: "transform 0.3s",
+                  }}>
+                    <div style={{ fontSize: 11, fontWeight: 700, color: l.accent, letterSpacing: 0.5, display: "flex", alignItems: "center", gap: 6 }}>
+                      <span style={{ fontSize: 9 }}>{l.icon}</span> {l.label}
+                    </div>
+                    {expand > 0.5 && (
+                      <div style={{ fontSize: 9, color: "rgba(245,245,247,0.4)", marginTop: 3, opacity: Math.min(1, (expand-0.5)*4) }}>
+                        {l.desc}
+                      </div>
+                    )}
+                  </div>
                 </div>
               )}
             </div>
           );
         })}
       </div>
-      <div style={{ marginTop: 16, display:"flex", alignItems:"center", justifyContent:"center", gap: 14 }}>
-        <span style={{ fontSize: 11, color: "rgba(245,245,247,0.4)" }}>Assembled</span>
+
+      {/* Slider */}
+      <div style={{
+        marginTop: 20, display: "flex", alignItems: "center", justifyContent: "center", gap: 16,
+        background: "rgba(255,255,255,0.03)", borderRadius: 50, padding: "10px 24px",
+        border: "1px solid rgba(255,255,255,0.06)", maxWidth: 320, margin: "20px auto 0",
+      }}>
+        <span style={{ fontSize: 10, color: "rgba(245,245,247,0.35)", letterSpacing: 1, textTransform: "uppercase", fontWeight: 600 }}>Compact</span>
         <input type="range" min="0" max="100" value={expand * 100}
           onChange={e => setExpand(e.target.value / 100)}
-          style={{ width: 160, accentColor: "#00d4ff", cursor: "pointer" }}
+          style={{ width: 140, accentColor: "#00d4ff", cursor: "pointer" }}
         />
-        <span style={{ fontSize: 11, color: "rgba(245,245,247,0.4)" }}>Exploded</span>
+        <span style={{ fontSize: 10, color: "rgba(245,245,247,0.35)", letterSpacing: 1, textTransform: "uppercase", fontWeight: 600 }}>Exploded</span>
       </div>
-      <p style={{ fontSize: 10, color: "rgba(245,245,247,0.3)", marginTop: 8 }}>Drag the slider to explore AV technology layers</p>
+      <p style={{ fontSize: 10, color: "rgba(245,245,247,0.25)", marginTop: 10 }}>
+        Drag the slider to explore · Hover layers for details
+      </p>
     </div>
   );
 }
