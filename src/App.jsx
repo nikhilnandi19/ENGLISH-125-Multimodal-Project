@@ -55,18 +55,18 @@ function AVExploder() {
     { label: "Passenger Cabin", desc: "Redesigned interior for work, rest, or connection", color: "#38bdf8", accent: "#67e8f9", icon: "◎" },
   ];
 
-  const spread = expand * 55;
+  const spread = expand * 85;
 
   return (
-    <div style={{ textAlign: "center", maxWidth: 700, margin: "0 auto" }}>
+    <div style={{ textAlign: "center", maxWidth: 900, margin: "0 auto" }}>
       {/* 3D Scene */}
       <div style={{
-        position: "relative", width: "100%", maxWidth: 520, height: 340, margin: "0 auto",
-        perspective: 900, perspectiveOrigin: "50% 40%",
+        position: "relative", width: "100%", maxWidth: 750, height: 500, margin: "0 auto",
+        perspective: 1000, perspectiveOrigin: "50% 40%",
       }}>
         {/* Ground shadow */}
         <div style={{
-          position: "absolute", bottom: 10, left: "50%", width: 280, height: 40,
+          position: "absolute", bottom: 10, left: "50%", width: 360, height: 50,
           transform: "translateX(-50%)", borderRadius: "50%",
           background: "radial-gradient(ellipse, rgba(0,180,255,0.08) 0%, transparent 70%)",
           filter: "blur(10px)", transition: "all 0.5s",
@@ -83,7 +83,7 @@ function AVExploder() {
               onMouseEnter={() => setHovered(i)}
               onMouseLeave={() => setHovered(null)}
               style={{
-                position: "absolute", left: "50%", top: "50%", width: 400, cursor: "pointer",
+                position: "absolute", left: "50%", top: "50%", width: 480, cursor: "pointer",
                 transform: `translate(-50%, calc(-50% + ${yOff}px)) rotateX(12deg) ${isHov && expand > 0.2 ? "scale(1.04)" : "scale(1)"}`,
                 transformStyle: "preserve-3d",
                 transition: "transform 0.45s cubic-bezier(.25,.46,.45,.94), opacity 0.35s",
@@ -193,14 +193,14 @@ function AVExploder() {
               {expand > 0.2 && (
                 <div style={{
                   position: "absolute", top: "50%",
-                  ...(i % 2 === 0 ? { right: -10, transform: "translateY(-50%)" } : { left: -10, transform: "translateY(-50%)" }),
-                  display: "flex", alignItems: "center", gap: 8,
+                  ...(i % 2 === 0 ? { right: -30, transform: "translateY(-50%)" } : { left: -30, transform: "translateY(-50%)" }),
+                  display: "flex", alignItems: "center", gap: 10,
                   flexDirection: i % 2 === 0 ? "row" : "row-reverse",
                   opacity: Math.min(1, (expand - 0.2) * 3),
                   transition: "opacity 0.4s",
                 }}>
                   {/* Connector line */}
-                  <div style={{ width: 40, height: 1, background: `linear-gradient(${i%2===0?"90deg":"270deg"}, ${l.color}60, transparent)` }}/>
+                  <div style={{ width: 55, height: 1, background: `linear-gradient(${i%2===0?"90deg":"270deg"}, ${l.color}60, transparent)` }}/>
                   {/* Tag */}
                   <div style={{
                     background: `${l.color}10`, border: `1px solid ${l.color}30`,
@@ -209,11 +209,11 @@ function AVExploder() {
                     transform: isHov ? "scale(1.05)" : "scale(1)",
                     transition: "transform 0.3s",
                   }}>
-                    <div style={{ fontSize: 11, fontWeight: 700, color: l.accent, letterSpacing: 0.5, display: "flex", alignItems: "center", gap: 6 }}>
-                      <span style={{ fontSize: 9 }}>{l.icon}</span> {l.label}
+                    <div style={{ fontSize: 13, fontWeight: 700, color: l.accent, letterSpacing: 0.5, display: "flex", alignItems: "center", gap: 6 }}>
+                      <span style={{ fontSize: 10 }}>{l.icon}</span> {l.label}
                     </div>
                     {expand > 0.5 && (
-                      <div style={{ fontSize: 9, color: "rgba(245,245,247,0.4)", marginTop: 3, opacity: Math.min(1, (expand-0.5)*4) }}>
+                      <div style={{ fontSize: 10, color: "rgba(245,245,247,0.4)", marginTop: 3, opacity: Math.min(1, (expand-0.5)*4) }}>
                         {l.desc}
                       </div>
                     )}
@@ -531,10 +531,10 @@ export default function AVWebsite() {
                   <div>
                     <div style={{opacity:t1,transform:`translateY(${lerp(60,0,t1)}px)`}}>
                       <p style={{fontSize:15,lineHeight:1.8,color:"rgba(245,245,247,0.6)",marginBottom:18}}>
-                        AVs are entering a culture already shaped by private consumption, digital isolation, and weakening public life — what journalist Derek Thompson calls <Src href="https://www.theatlantic.com/magazine/archive/2025/02/american-loneliness-epidemic-anti-social-century/681076/"><em>the anti-social century</em></Src>.
+                        AVs are entering a culture already shaped by private consumption, digital isolation, and weakening public life — what journalist Derek Thompson calls <Src href="https://www.theatlantic.com/magazine/archive/2025/02/american-loneliness-personality-politics/681091/"><em>the anti-social century</em></Src>.
                       </p>
                       <p style={{fontSize:15,lineHeight:1.8,color:"rgba(245,245,247,0.6)"}}>
-                        Among AV developers, <Src href="https://www.routledge.com/Sustainability-Prospects-for-Autonomous-Vehicles-Environmental-Social-and-Urban/Martin/p/book/9780367219659">social acceptance ranks dead last</Src> as a priority — even though the technology could reshape how entire communities interact.
+                        Among AV developers, <Src href="https://search.lib.umich.edu/articles/record/cdi_nii_cinii_1970304959905432320?query=Sustainability+prospects+for+autonomous+vehicles%3A+Environmental%2C+social%2C+and+urban">social acceptance ranks dead last</Src> as a priority — even though the technology could reshape how entire communities interact.
                       </p>
                     </div>
                     <div style={{marginTop:28,opacity:bridge,transform:`translateY(${lerp(50,0,bridge)}px) scale(${lerp(0.85,1,bridge)})`,transformOrigin:"top left"}}>
@@ -552,7 +552,7 @@ export default function AVWebsite() {
                       <p style={{fontSize:20,fontWeight:500,lineHeight:1.45,fontFamily:"'DM Sans'",marginBottom:14}}>
                         "AVs may create technical gains while still producing negative social spillovers."
                       </p>
-                      <p style={{fontSize:11,color:"rgba(245,245,247,0.35)"}}>— <Src href="https://www.routledge.com/Sustainability-Prospects-for-Autonomous-Vehicles-Environmental-Social-and-Urban/Martin/p/book/9780367219659">George Martin</Src>, <em>Sustainability Prospects for Autonomous Vehicles</em></p>
+                      <p style={{fontSize:11,color:"rgba(245,245,247,0.35)"}}>— <Src href="https://search.lib.umich.edu/articles/record/cdi_nii_cinii_1970304959905432320?query=Sustainability+prospects+for+autonomous+vehicles%3A+Environmental%2C+social%2C+and+urban">George Martin</Src>, <em>Sustainability Prospects for Autonomous Vehicles</em></p>
                       <div style={{marginTop:20,display:"flex",flexWrap:"wrap",gap:7}}>
                         {["Urban Sprawl","Street Life","Public Transit","Social Fabric"].map((t,i)=>(
                           <span key={t} style={{padding:"4px 12px",borderRadius:50,fontSize:10,color:"#00d4ff",background:"rgba(0,212,255,0.1)",border:"1px solid rgba(0,212,255,0.2)",opacity:tagP(i),transform:`translateY(${lerp(20,0,tagP(i))}px) scale(${lerp(0.7,1,tagP(i))})`}}>{t}</span>
@@ -687,10 +687,10 @@ export default function AVWebsite() {
                 <div className="grid2" style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:28,alignItems:"center"}}>
                   <div style={{opacity:txt,transform:`translateY(${lerp(50,0,txt)}px)`}}>
                     <p style={{fontSize:14,lineHeight:1.7,color:"rgba(245,245,247,0.6)",marginBottom:12}}>
-                      Users see AVs positively for safety and comfort. But <Src href="https://www.ceeol.com/search/article-detail?id=1177722">urban experts worry</Src> about sprawl, reduced walking, and fewer spontaneous public encounters.
+                      Users see AVs positively for safety and comfort. But <Src href="https://search.lib.umich.edu/articles/record/cdi_proquest_journals_3070766103?query=The+impact+of+autonomous+vehicles+on+the+city+structure%3A+A+case+study+in+Romanian+universities">urban experts worry</Src> about sprawl, reduced walking, and fewer spontaneous public encounters.
                     </p>
                     <p style={{fontSize:14,lineHeight:1.7,color:"rgba(245,245,247,0.6)"}}>
-                      If autonomous mobility increases urban sprawl and reduces face-to-face interaction, AVs don't just modernize city life — they <Src href="https://www.ceeol.com/search/article-detail?id=1177722">reorganize it around even more individualized movement</Src>.
+                      If autonomous mobility increases urban sprawl and reduces face-to-face interaction, AVs don't just modernize city life — they <Src href="https://search.lib.umich.edu/articles/record/cdi_proquest_journals_3070766103?query=The+impact+of+autonomous+vehicles+on+the+city+structure%3A+A+case+study+in+Romanian+universities">reorganize it around even more individualized movement</Src>.
                     </p>
                   </div>
                   <div style={{opacity:city,transformOrigin:"bottom center"}}>
@@ -759,7 +759,7 @@ export default function AVWebsite() {
                 <div className="grid2" style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:40,alignItems:"start"}}>
                   <div style={{opacity:txt,transform:`translateY(${lerp(50,0,txt)}px)`}}>
                     <p style={{fontSize:15,lineHeight:1.8,color:"rgba(245,245,247,0.6)",marginBottom:18}}>
-                      The research doesn't support a fully negative conclusion. AVs can reduce stress, improve accessibility, and create real transport gains. But these gains don't <Src href="https://www.routledge.com/Sustainability-Prospects-for-Autonomous-Vehicles-Environmental-Social-and-Urban/Martin/p/book/9780367219659">automatically strengthen public life</Src>.
+                      The research doesn't support a fully negative conclusion. AVs can reduce stress, improve accessibility, and create real transport gains. But these gains don't <Src href="https://search.lib.umich.edu/articles/record/cdi_nii_cinii_1970304959905432320?query=Sustainability+prospects+for+autonomous+vehicles%3A+Environmental%2C+social%2C+and+urban">automatically strengthen public life</Src>.
                     </p>
                     <p style={{fontSize:15,lineHeight:1.8,color:"rgba(245,245,247,0.6)"}}>
                       What matters is how AVs are incorporated — shared fleets, transit integration, and community-centered design lead to very different outcomes than private adoption.
@@ -786,11 +786,11 @@ export default function AVWebsite() {
                   </p>
                   <div style={{marginTop:24,display:"flex",justifyContent:"center",gap:16,flexWrap:"wrap"}}>
                     {[
-                      {label:"Martin (2019)",href:"https://www.routledge.com/Sustainability-Prospects-for-Autonomous-Vehicles-Environmental-Social-and-Urban/Martin/p/book/9780367219659"},
+                      {label:"Martin (2019)",href:"https://search.lib.umich.edu/articles/record/cdi_nii_cinii_1970304959905432320?query=Sustainability+prospects+for+autonomous+vehicles%3A+Environmental%2C+social%2C+and+urban"},
                       {label:"McCarroll & Cugurullo (2022)",href:"https://doi.org/10.1007/s00146-021-01334-6"},
                       {label:"Nowland et al. (2024)",href:"https://doi.org/10.1111/sjop.12998"},
-                      {label:"Luca & Andrei (2024)",href:"https://www.ceeol.com/search/article-detail?id=1177722"},
-                      {label:"Thompson (2025)",href:"https://www.theatlantic.com/magazine/archive/2025/02/american-loneliness-epidemic-anti-social-century/681076/"},
+                      {label:"Luca & Andrei (2024)",href:"https://search.lib.umich.edu/articles/record/cdi_proquest_journals_3070766103?query=The+impact+of+autonomous+vehicles+on+the+city+structure%3A+A+case+study+in+Romanian+universities"},
+                      {label:"Thompson (2025)",href:"https://www.theatlantic.com/magazine/archive/2025/02/american-loneliness-personality-politics/681091/"},
                     ].map((s,i)=>(
                       <a key={i} href={s.href} target="_blank" rel="noopener noreferrer" style={{fontSize:10,color:"#00d4ff",textDecoration:"none",padding:"4px 12px",borderRadius:50,border:"1px solid rgba(0,212,255,0.15)",background:"rgba(0,212,255,0.05)",transition:"all 0.3s"}}
                         onMouseOver={e=>{e.target.style.background="rgba(0,212,255,0.12)";e.target.style.borderColor="rgba(0,212,255,0.3)"}}
