@@ -193,14 +193,14 @@ function AVExploder() {
               {expand > 0.2 && (
                 <div style={{
                   position: "absolute", top: "50%",
-                  ...(i % 2 === 0 ? { right: -80, transform: "translateY(-50%)" } : { left: -80, transform: "translateY(-50%)" }),
+                  ...(i % 2 === 0 ? { right: -200, transform: "translateY(-50%)" } : { left: -200, transform: "translateY(-50%)" }),
                   display: "flex", alignItems: "center", gap: 10,
                   flexDirection: i % 2 === 0 ? "row" : "row-reverse",
                   opacity: Math.min(1, (expand - 0.2) * 3),
                   transition: "opacity 0.4s",
                 }}>
                   {/* Connector line */}
-                  <div style={{ width: 70, height: 1, background: `linear-gradient(${i%2===0?"90deg":"270deg"}, ${l.color}60, transparent)` }}/>
+                  <div style={{ width: 120, height: 1, background: `linear-gradient(${i%2===0?"90deg":"270deg"}, ${l.color}60, transparent)` }}/>
                   {/* Tag */}
                   <div style={{
                     background: `${l.color}10`, border: `1px solid ${l.color}30`,
@@ -531,17 +531,17 @@ export default function AVWebsite() {
                   <div>
                     <div style={{opacity:t1,transform:`translateY(${lerp(60,0,t1)}px)`}}>
                       <p style={{fontSize:15,lineHeight:1.8,color:"rgba(245,245,247,0.6)",marginBottom:18}}>
-                        AVs are entering a culture already shaped by private consumption, digital isolation, and weakening public life — what journalist Derek Thompson calls <Src href="https://www.theatlantic.com/magazine/archive/2025/02/american-loneliness-personality-politics/681091/"><em>the anti-social century</em></Src>.
+                        AVs are entering a culture already shaped by private consumption, digital isolation, and weakening public life, what journalist Derek Thompson calls <Src href="https://www.theatlantic.com/magazine/archive/2025/02/american-loneliness-personality-politics/681091/"><em>the anti-social century</em></Src>.
                       </p>
                       <p style={{fontSize:15,lineHeight:1.8,color:"rgba(245,245,247,0.6)"}}>
-                        Among AV developers, <Src href="https://search.lib.umich.edu/articles/record/cdi_nii_cinii_1970304959905432320?query=Sustainability+prospects+for+autonomous+vehicles%3A+Environmental%2C+social%2C+and+urban">social acceptance ranks dead last</Src> as a priority — even though the technology could reshape how entire communities interact.
+                        Among AV developers, <Src href="https://search.lib.umich.edu/articles/record/cdi_nii_cinii_1970304959905432320?query=Sustainability+prospects+for+autonomous+vehicles%3A+Environmental%2C+social%2C+and+urban">social acceptance ranks dead last</Src> as a priority, even though the technology could reshape how entire communities interact.
                       </p>
                     </div>
                     <div style={{marginTop:28,opacity:bridge,transform:`translateY(${lerp(50,0,bridge)}px) scale(${lerp(0.85,1,bridge)})`,transformOrigin:"top left"}}>
                       <div style={{background:"linear-gradient(135deg,rgba(0,212,255,0.1),rgba(123,97,255,0.1))",borderRadius:20,padding:"22px 24px",border:"1px solid rgba(255,255,255,0.09)"}}>
                         <div style={{fontSize:12,fontWeight:600,color:"#7b61ff",marginBottom:8}}>Convenience ≠ Connection</div>
                         <p style={{fontSize:13,color:"rgba(245,245,247,0.55)",lineHeight:1.65}}>
-                          <Src href="https://doi.org/10.1111/sjop.12998">COVID-era research</Src> found digital tools helped reduce isolation — but they were never a full substitute for face-to-face contact. The same logic applies to AV travel.
+                          <Src href="https://doi.org/10.1111/sjop.12998">COVID-era research</Src> found digital tools helped reduce isolation, but they were never a full substitute for face-to-face contact. The same logic applies to AV travel.
                         </p>
                       </div>
                     </div>
@@ -552,7 +552,7 @@ export default function AVWebsite() {
                       <p style={{fontSize:20,fontWeight:500,lineHeight:1.45,fontFamily:"'DM Sans'",marginBottom:14}}>
                         "AVs may create technical gains while still producing negative social spillovers."
                       </p>
-                      <p style={{fontSize:11,color:"rgba(245,245,247,0.35)"}}>— <Src href="https://search.lib.umich.edu/articles/record/cdi_nii_cinii_1970304959905432320?query=Sustainability+prospects+for+autonomous+vehicles%3A+Environmental%2C+social%2C+and+urban">George Martin</Src>, <em>Sustainability Prospects for Autonomous Vehicles</em></p>
+                      <p style={{fontSize:11,color:"rgba(245,245,247,0.35)"}}>– <Src href="https://search.lib.umich.edu/articles/record/cdi_nii_cinii_1970304959905432320?query=Sustainability+prospects+for+autonomous+vehicles%3A+Environmental%2C+social%2C+and+urban">George Martin</Src>, <em>Sustainability Prospects for Autonomous Vehicles</em></p>
                       <div style={{marginTop:20,display:"flex",flexWrap:"wrap",gap:7}}>
                         {["Urban Sprawl","Street Life","Public Transit","Social Fabric"].map((t,i)=>(
                           <span key={t} style={{padding:"4px 12px",borderRadius:50,fontSize:10,color:"#00d4ff",background:"rgba(0,212,255,0.1)",border:"1px solid rgba(0,212,255,0.2)",opacity:tagP(i),transform:`translateY(${lerp(20,0,tagP(i))}px) scale(${lerp(0.7,1,tagP(i))})`}}>{t}</span>
@@ -604,21 +604,21 @@ export default function AVWebsite() {
                 <div style={{opacity:h1,transform:`translateY(${lerp(70,0,h1)}px)`}}>
                   <div className="lb">Reclaiming Time?</div>
                   <h2 style={{fontFamily:"'DM Sans'",fontSize:"clamp(30px,5vw,60px)",fontWeight:700,letterSpacing:"-2px",lineHeight:1.05,marginBottom:36}}>
-                    Free time — or just<br/><span className="gt">more screen time?</span>
+                    Free time, or just<br/><span className="gt">more screen time?</span>
                   </h2>
                 </div>
                 <div className="grid2" style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:40,alignItems:"start"}}>
                   <div style={{opacity:txt,transform:`translateY(${lerp(50,0,txt)}px)`}}>
                     <p style={{fontSize:15,lineHeight:1.8,color:"rgba(245,245,247,0.6)",marginBottom:18}}>
-                      AVs are celebrated for "giving back" travel time. But <Src href="https://doi.org/10.1007/s00146-021-01334-6">McCarroll & Cugurullo</Src> argue this time won't stay free — it gets absorbed into work, consumption, and digital activity.
+                      AVs are celebrated for "giving back" travel time. But <Src href="https://doi.org/10.1007/s00146-021-01334-6">McCarroll & Cugurullo</Src> argue this time won't stay free: it gets absorbed into work, consumption, and digital activity.
                     </p>
                     <p style={{fontSize:15,lineHeight:1.8,color:"rgba(245,245,247,0.6)"}}>
-                      The car becomes another extension of the workday. Not a space for rest or human connection — just another productivity window.
+                      The car becomes another extension of the workday. Not a space for rest or human connection, just another productivity window.
                     </p>
                   </div>
                   <div style={{display:"flex",flexDirection:"column",gap:14}}>
                     {[
-                      {icon:"⏱️",title:"Work absorbs travel",text:"Commute becomes another productivity window — emails, calls, tasks."},
+                      {icon:"⏱️",title:"Work absorbs travel",text:"Commute becomes another productivity window: emails, calls, tasks."},
                       {icon:"📱",title:"Screens fill the void",text:"Without driving, passengers default to personal devices and media."},
                       {icon:"🫧",title:"Enclosure deepens",text:"The ride becomes a self-contained bubble, cut off from the outside."},
                     ].map((item,i) => {
@@ -640,8 +640,8 @@ export default function AVWebsite() {
                 <div style={{marginTop:32,textAlign:"center",opacity:quote,transform:`scale(${lerp(0.8,1,quote)}) translateY(${lerp(40,0,quote)}px)`}}>
                   <div style={{background:"rgba(255,255,255,0.035)",borderRadius:24,padding:"28px 32px",border:"1px solid rgba(255,255,255,0.08)"}}>
                     <p style={{fontSize:"clamp(16px,2vw,21px)",fontFamily:"'DM Sans'",lineHeight:1.65,color:"rgba(245,245,247,0.6)",fontWeight:300,maxWidth:600,margin:"0 auto"}}>
-                      Technologies isolate not by cutting people off — but by making <span style={{color:"#f5f5f7",fontWeight:600}}>private, optimized, low-friction</span> experiences more attractive than public, unpredictable ones.
-                      <span style={{fontSize:11,color:"rgba(245,245,247,0.3)",marginLeft:6}}>— <Src href="https://doi.org/10.1007/s00146-021-01334-6">McCarroll & Cugurullo, 2022</Src></span>
+                      Technologies isolate not by cutting people off, but by making <span style={{color:"#f5f5f7",fontWeight:600}}>private, optimized, low-friction</span> experiences more attractive than public, unpredictable ones.
+                      <span style={{fontSize:11,color:"rgba(245,245,247,0.3)",marginLeft:6}}>– <Src href="https://doi.org/10.1007/s00146-021-01334-6">McCarroll & Cugurullo, 2022</Src></span>
                     </p>
                   </div>
                 </div>
@@ -690,7 +690,7 @@ export default function AVWebsite() {
                       Users see AVs positively for safety and comfort. But <Src href="https://search.lib.umich.edu/articles/record/cdi_proquest_journals_3070766103?query=The+impact+of+autonomous+vehicles+on+the+city+structure%3A+A+case+study+in+Romanian+universities">urban experts worry</Src> about sprawl, reduced walking, and fewer spontaneous public encounters.
                     </p>
                     <p style={{fontSize:14,lineHeight:1.7,color:"rgba(245,245,247,0.6)"}}>
-                      If autonomous mobility increases urban sprawl and reduces face-to-face interaction, AVs don't just modernize city life — they <Src href="https://search.lib.umich.edu/articles/record/cdi_proquest_journals_3070766103?query=The+impact+of+autonomous+vehicles+on+the+city+structure%3A+A+case+study+in+Romanian+universities">reorganize it around even more individualized movement</Src>.
+                      If autonomous mobility increases urban sprawl and reduces face-to-face interaction, AVs don't just modernize city life: they <Src href="https://search.lib.umich.edu/articles/record/cdi_proquest_journals_3070766103?query=The+impact+of+autonomous+vehicles+on+the+city+structure%3A+A+case+study+in+Romanian+universities">reorganize it around even more individualized movement</Src>.
                     </p>
                   </div>
                   <div style={{opacity:city,transformOrigin:"bottom center"}}>
@@ -753,7 +753,7 @@ export default function AVWebsite() {
                 <div style={{opacity:h1,transform:`translateY(${lerp(60,0,h1)}px)`}}>
                   <div className="lb">Looking Ahead</div>
                   <h2 style={{fontFamily:"'DM Sans'",fontSize:"clamp(30px,5vw,60px)",fontWeight:700,letterSpacing:"-2px",lineHeight:1.05,marginBottom:32}}>
-                    The question isn't <em>if</em> —<br/>it's <span className="gt">how</span>.
+                    The question isn't <em>if</em>,<br/>it's <span className="gt">how</span>.
                   </h2>
                 </div>
                 <div className="grid2" style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:40,alignItems:"start"}}>
@@ -762,7 +762,7 @@ export default function AVWebsite() {
                       The research doesn't support a fully negative conclusion. AVs can reduce stress, improve accessibility, and create real transport gains. But these gains don't <Src href="https://search.lib.umich.edu/articles/record/cdi_nii_cinii_1970304959905432320?query=Sustainability+prospects+for+autonomous+vehicles%3A+Environmental%2C+social%2C+and+urban">automatically strengthen public life</Src>.
                     </p>
                     <p style={{fontSize:15,lineHeight:1.8,color:"rgba(245,245,247,0.6)"}}>
-                      What matters is how AVs are incorporated — shared fleets, transit integration, and community-centered design lead to very different outcomes than private adoption.
+                      What matters is how AVs are incorporated: shared fleets, transit integration, and community-centered design lead to very different outcomes than private adoption.
                     </p>
                   </div>
                   <div style={{opacity:list,transform:`scale(${lerp(0.75,1,list)}) translateY(${lerp(50,0,list)}px)`,background:"linear-gradient(135deg,rgba(0,102,255,0.08),rgba(0,212,255,0.08))",borderRadius:22,padding:"28px 26px",border:"1px solid rgba(0,212,255,0.15)"}}>
